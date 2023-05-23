@@ -9,11 +9,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    glider.cpp \
+    incomingobject.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    mygraphicsscene.cpp
 
 HEADERS += \
-    mainwindow.h
+    glider.h \
+    incomingobject.h \
+    mainwindow.h \
+    mygraphicsscene.h
 
 FORMS += \
     mainwindow.ui
