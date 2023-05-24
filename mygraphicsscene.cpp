@@ -1,22 +1,25 @@
 #include "mygraphicsscene.h"
 
-MyGraphicsScene::MyGraphicsScene(Glider *glider)
+MyGraphicsScene::MyGraphicsScene()
 {
-    this->glider = glider;
+    this->glider = new Glider(this);
     addItem(this->glider);
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
 {
+    QGraphicsScene::keyPressEvent(event);
     switch(event->key())
     {
     case Qt::Key_D:
         glider->changeLine(LINE::right);
-        emit repaintGlider(QRectF(QPoint(0,0), QPoint(800,600)));
+        glider->moveBy(100,0);
+        qDebug() << "D";
         break;
     case Qt::Key_A:
         glider->changeLine(LINE::left);
-        emit sceneRectChanged(QRectF(QPoint(0,0), QPoint(800,600)));
+        glider->moveBy(-100,0);
+        qDebug() << "A";
         break;
     }
 }
