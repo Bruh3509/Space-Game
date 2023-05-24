@@ -10,7 +10,7 @@ class Glider : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    Glider();
+    Glider(QObject *parent = nullptr);
     void changeLine(LINE);
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

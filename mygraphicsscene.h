@@ -3,11 +3,13 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <glider.h>
+#include <QtDebug>
+
 class MyGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    MyGraphicsScene(Glider*);
+    MyGraphicsScene();
 signals:
     void repaintGlider(QRectF);
 protected:
