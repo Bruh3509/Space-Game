@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     asteroid.cpp \
+    bullet.cpp \
     glider.cpp \
     incomingobject.cpp \
     main.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     asteroid.h \
+    bullet.h \
     glider.h \
     incomingobject.h \
     mainwindow.h \
@@ -30,3 +32,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc
