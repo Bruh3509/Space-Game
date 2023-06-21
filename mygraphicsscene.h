@@ -2,8 +2,10 @@
 #define MYGRAPHICSSCENE_H
 #include <QGraphicsScene>
 #include <QKeyEvent>
-#include <glider.h>
 #include <QtDebug>
+
+#include <glider.h>
+#include <bullet.h>
 
 class MyGraphicsScene : public QGraphicsScene
 {

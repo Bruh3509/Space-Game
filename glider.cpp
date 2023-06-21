@@ -3,6 +3,7 @@
 Glider::Glider(QObject *parent) : QObject(parent), QGraphicsItem()
 {
     curLine = 2;
+    bullets = 4;
 }
 
 bool Glider::changeLine(LINE l)
@@ -24,17 +25,37 @@ bool Glider::changeLine(LINE l)
     }
 }
 
+bool Glider::fire()
+{
+    if (bullets != 0 ) {
+        --bullets;
+        return true;
+    } else
+        return false;
+}
+
+QRectF Glider::getLine() const
+{
+    switch (curLine)
+    {
+    case 1:
+        return fLine;
+    case 2:
+        return sLine;
+    case 3:
+        return thLine;
+    }
+}
 void Glider::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setPen(Qt::red);
-    painter->setBrush(Qt::green);
-    
-    painter->drawRect(sLine);
-
+    Q_UNUSED(option)
+    Q_UNUSED(widget)
+    QImage image(":/gliderIm/ship.png");
+    painter->drawImage(sLine, image);
      //ToDo, draw the right rectangle. From 3;
 }
 
 QRectF Glider::boundingRect() const
 {
-    return QRectF(QPoint(388.5,500), QPoint(412.5,525));
+    return sLine;
 }
