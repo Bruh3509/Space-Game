@@ -1,6 +1,6 @@
 #include "glider.h"
 
-Glider::Glider()
+Glider::Glider(QObject *parent) : QObject(parent), QGraphicsItem()
 {
     curLine = 2;
 }
@@ -28,24 +28,9 @@ void Glider::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 {
     painter->setPen(Qt::red);
     painter->setBrush(Qt::green);
-    /*
-    switch (curLine)
-    {
-    case 1:
-        painter->drawRect(fLine);
-        break;
-    case 2:
-        painter->drawRect(sLine);
-        break;
-    case 3:
-        painter->drawRect(thLine);
-        break;
-    default:
-        painter->drawRect(sLine);
-        break;
-    }
-    */
+    
     painter->drawRect(sLine);
+
      //ToDo, draw the right rectangle. From 3;
 }
 

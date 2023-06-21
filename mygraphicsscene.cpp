@@ -1,19 +1,22 @@
 #include "mygraphicsscene.h"
 
-MyGraphicsScene::MyGraphicsScene(Glider *glider)
+MyGraphicsScene::MyGraphicsScene()
 {
-    this->glider = glider;
+    this->glider = new Glider(this);
     addItem(this->glider);
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
 {
+    QGraphicsScene::keyPressEvent(event);
     switch(event->key())
     {
     case Qt::Key_D:
+
         if (glider->changeLine(LINE::right)) {
             glider->moveBy(250, 0);
         }
+
         break;
             /*
     case Qt::RightArrow:
