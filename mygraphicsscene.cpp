@@ -37,5 +37,11 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
         }
         break;
         */
+    case Qt::Key_Space:
+        // ToDo delete bullets!!!
+        if (glider->fire()) {
+            addItem(new Bullet(glider->getLine()));
+        }
+        break;
     }
 }

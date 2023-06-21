@@ -12,17 +12,21 @@ class Glider : public QObject, public QGraphicsItem
 public:
     Glider(QObject*);
     bool changeLine(LINE);
+    bool fire();
+    QRectF getLine() const;
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     QRectF boundingRect() const override;
-    int health;
+
 private:
     int curLine;
+    int health;
+    int bullets;
     //Wrong numbers.
-    //inline static const QRectF fLine = QRectF(QPoint(130,500), QPoint(155,525));
-    inline static const QRectF sLine = QRectF(QPoint(388.5,500), QPoint(412.5,525));
-    //inline static const QRectF thLine = QRectF(QPoint(750,500), QPoint(775,525));
+    const QRectF fLine = QRectF(QPoint(90.5,425), QPoint(190.5,525));
+    const QRectF sLine = QRectF(QPoint(340.5,425), QPoint(440.5,525));
+    const QRectF thLine = QRectF(QPoint(590.5,425), QPoint(690.5,525));
 };
 
 #endif // GLIDER_H

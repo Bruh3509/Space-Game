@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/gliderIm">
+        <file>ship.png</file>
+        <file>ship1.png</file>
+    </qresource>
+</RCC>
