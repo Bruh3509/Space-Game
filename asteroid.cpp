@@ -11,11 +11,13 @@ Asteroid::Asteroid()
     this->speed = speed;
 }
 
-Asteroid::destructAsteroid(){
+void Asteroid::destructAsteroid()
+{
 
 }
 
-Asteroid::spawnAsteroid(){
+void Asteroid::spawnAsteroid(){
+    /*
     switch(this->line){
     case 1:
 
@@ -32,4 +34,5 @@ Asteroid::spawnAsteroid(){
     default: break;
 
     }
+    */
 }
