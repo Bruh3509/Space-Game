@@ -5,26 +5,30 @@ Glider::Glider(QObject *parent) : QObject(parent), QGraphicsItem()
     curLine = 2;
 }
 
-void Glider::changeLine(LINE l)
+bool Glider::changeLine(LINE l)
 {
     switch (l)
     {
     case left:
-        if (curLine != 1)
+        if (curLine != 1) {
             --curLine;
-        break;
+            return true;
+        } else
+            return false;
     case right:
-        if (curLine != 3)
+        if (curLine != 3) {
             ++curLine;
-        break;
+            return true;
+        } else
+            return false;
     }
-
 }
 
 void Glider::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->setPen(Qt::red);
     painter->setBrush(Qt::green);
+    
     painter->drawRect(sLine);
 
      //ToDo, draw the right rectangle. From 3;
