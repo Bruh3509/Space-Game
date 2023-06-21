@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    asteroid.cpp \
     bullet.cpp \
     glider.cpp \
     incomingobject.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
     mygraphicsscene.cpp
 
 HEADERS += \
+    asteroid.h \
     bullet.h \
     glider.h \
     incomingobject.h \
