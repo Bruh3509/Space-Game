@@ -1,14 +1,37 @@
 #include "asteroid.h"
 
-Asteroid::Asteroid()
+Asteroid::Asteroid(QObject *parent): QObject(parent), QGraphicsItem()
 {
     int type = QRandomGenerator::global()->bounded(3);
-    int line = QRandomGenerator::global()->bounded(2) + 1;   // the line is ranked from 1 to 3
-    int speed = QRandomGenerator::global()->bounded(5) + 1;
+    int line = QRandomGenerator::global()->bounded(3) + 1;   // the line is ranked from 1 to 3
+    int speed = QRandomGenerator::global()->bounded(3) + 1;
 
-    this->typeOfAsteroid = type;
     this->whichLine = line;
     this->speed = speed;
+    this->imageOfAsteroid = QImage(":/asteroid/asteroid_0.png");
+
+    switch(type){
+    case 0:
+        this->imageOfAsteroid = QImage(":/asteroid/asteroid_0.png");
+        break;
+    case 1:
+        this->imageOfAsteroid = QImage(":/asteroid/asteroid_1.png");
+        break;
+    case 2:
+        this->imageOfAsteroid = QImage(":/asteroid/asteroid_2.png");
+        break;
+
+    default: break;
+    }
+
+    timer = new QTimer();
+    timer->setInterval(15);
+    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(moveAsteroid()));
+    timer->start();
+}
+
+void Asteroid::moveAsteroid(){
+    moveBy(0, this->speed);
 }
 
 void Asteroid::destructAsteroid()
@@ -16,23 +39,39 @@ void Asteroid::destructAsteroid()
 
 }
 
-void Asteroid::spawnAsteroid(){
-    /*
-    switch(this->line){
-    case 1:
 
+void Asteroid::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+
+        Q_UNUSED(option)
+        Q_UNUSED(widget)
+
+
+        switch(this->whichLine){
+        case 1:
+            painter->drawImage(firstLine, this->imageOfAsteroid);
         break;
 
-    case 2:
-
+        case 2:
+            painter->drawImage(secondLine, this->imageOfAsteroid);
         break;
 
-    case 3:
-
+        case 3:
+            painter->drawImage(thirdLine, this->imageOfAsteroid);
         break;
 
-    default: break;
+        default: break;
+        }
+}
 
-    }
-    */
+QRectF Asteroid::boundingRect() const
+{
+        switch(this->whichLine){
+        case 1:
+            return firstLine;
+        case 2:
+            return secondLine;
+        case 3:
+            return thirdLine;
+        default: break;
+        }
 }

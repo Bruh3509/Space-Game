@@ -4,6 +4,7 @@ MyGraphicsScene::MyGraphicsScene()
 {
     this->glider = new Glider(this);
     addItem(this->glider);
+
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
@@ -45,5 +46,8 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
             addItem(blt);
         }
         break;
+    case Qt::Key_Q:
+        this->asteroid = new Asteroid(this);
+        addItem(this->asteroid);
     }
 }

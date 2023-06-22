@@ -6,6 +6,7 @@
 
 #include <glider.h>
 #include <bullet.h>
+#include <asteroid.h>
 
 class MyGraphicsScene : public QGraphicsScene
 {
@@ -18,6 +19,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 private:
     Glider *glider;
+    Asteroid *asteroid;
 };
 
 #endif // MYGRAPHICSSCENE_H
