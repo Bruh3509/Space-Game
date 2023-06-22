@@ -3,4 +3,9 @@
         <file>ship.png</file>
         <file>ship1.png</file>
     </qresource>
+    <qresource prefix="/asteroid">
+        <file>asteroid_0.png</file>
+        <file>asteroid_1.png</file>
+        <file>asteroid_2.png</file>
+    </qresource>
 </RCC>
