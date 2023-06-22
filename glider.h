@@ -23,10 +23,10 @@ private:
     int curLine;
     int health;
     int bullets;
-    //Wrong numbers.
-    const QRectF fLine = QRectF(QPoint(90.5,425), QPoint(190.5,525));
-    const QRectF sLine = QRectF(QPoint(340.5,425), QPoint(440.5,525));
-    const QRectF thLine = QRectF(QPoint(590.5,425), QPoint(690.5,525));
+    // I change number.
+    const QRectF fLine = QRectF(QPoint(83,625), QPoint(183,725));
+    const QRectF sLine = QRectF(QPoint(333,625), QPoint(433,725));
+    const QRectF thLine = QRectF(QPoint(583,625), QPoint(683,725));
 };
 
 #endif // GLIDER_H
