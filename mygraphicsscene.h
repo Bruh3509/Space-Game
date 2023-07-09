@@ -17,13 +17,11 @@ public:
     MyGraphicsScene();
 private slots:
     void checkCollisionAWB(Bullet*); // AWB - Asteroid with Bullet.
+    void checkCollisionAWG(Asteroid*); // AWG - Asteroid with Glider.
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 private:
     Glider *glider;
-    Asteroid *asteroid;
-    QVector<Bullet*> bulletsStash;
-    QVector<Asteroid*> asteroidStash;
 };
 
 #endif // MYGRAPHICSSCENE_H

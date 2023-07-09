@@ -40,15 +40,15 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Space:
         if (glider->fire()) {
             QPointF pt = QPointF(glider->getLine().center());
-            Bullet *blt = new Bullet(pt);
+            Bullet *blt = new Bullet(pt, this);
             addItem(blt);
             QObject::connect(blt, SIGNAL(moved(Bullet*)), this, SLOT(checkCollisionAWB(Bullet*)));
         }
         break;
     case Qt::Key_Q:
-        this->asteroid = new Asteroid(this); // We do not need to save the obj.
-        addItem(this->asteroid);
-        asteroidStash.push_back(this->asteroid);
+        Asteroid *asteroid = new Asteroid(this); // We do not need to save the obj., deleted field asteroid.
+        addItem(asteroid);
+        QObject::connect(asteroid, SIGNAL(moved(Asteroid*)), this, SLOT(checkCollisionAWG(Asteroid*)));
     }
 }
 
@@ -62,4 +62,14 @@ void MyGraphicsScene::checkCollisionAWB(Bullet *blt)
 
     if (!collisions.empty())
         delete blt;
+}
+
+void MyGraphicsScene::checkCollisionAWG(Asteroid *asteroid)
+{
+    qDebug() << "aster";
+    QList<QGraphicsItem*> collisions = this->collidingItems(asteroid);
+    if (collisions.contains(glider)) {
+        delete asteroid;
+        glider->damaged();
+    }
 }

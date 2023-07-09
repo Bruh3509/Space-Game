@@ -9,7 +9,7 @@ class Bullet : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    Bullet(QPointF);
+    Bullet(QPointF, QObject *parent = nullptr);
     ~Bullet();
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

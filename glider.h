@@ -1,10 +1,11 @@
 #ifndef GLIDER_H
 #define GLIDER_H
+#include <QDebug>
 #include <QObject>
 #include <QGraphicsItem>
 #include <QPainter>
 
-enum LINE {left, right};
+enum class LINE {left, right};
 
 class Glider : public QObject, public QGraphicsItem
 {
@@ -13,6 +14,7 @@ public:
     Glider(QObject*);
     bool changeLine(LINE);
     bool fire();
+    void damaged();
     QRectF getLine() const;
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

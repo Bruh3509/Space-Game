@@ -4,19 +4,20 @@ Glider::Glider(QObject *parent) : QObject(parent), QGraphicsItem()
 {
     curLine = 2;
     bullets = 4;
+    health = 3;
 }
 
 bool Glider::changeLine(LINE l)
 {
     switch (l)
     {
-    case left:
+    case LINE::left:
         if (curLine != 1) {
             --curLine;
             return true;
         } else
             return false;
-    case right:
+    case LINE::right:
         if (curLine != 3) {
             ++curLine;
             return true;
@@ -34,6 +35,14 @@ bool Glider::fire()
         return false;
 }
 
+void Glider::damaged()
+{
+    qDebug() << "Got damage";
+    --health;
+    if (health == 0) {
+        // SIGNAL to stop the game.
+    }
+}
 QRectF Glider::getLine() const
 {
     switch (curLine)

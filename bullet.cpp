@@ -1,6 +1,6 @@
 #include "bullet.h"
 #define DEBUG
-Bullet::Bullet(QPointF gliderPos) : QObject(), QGraphicsItem()
+Bullet::Bullet(QPointF gliderPos, QObject *parent) : QObject(parent), QGraphicsItem()
 {
     gliderYPos = gliderPos.ry();
     gliderXPos = gliderPos.rx();
