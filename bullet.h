@@ -14,6 +14,8 @@ public:
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QRectF boundingRect() const override;
+signals:
+    void moved(Bullet*);
 private slots:
     void move();
 private:

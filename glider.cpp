@@ -44,15 +44,17 @@ QRectF Glider::getLine() const
         return sLine;
     case 3:
         return thLine;
+    default:
+        return sLine;
     }
 }
+
 void Glider::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option)
     Q_UNUSED(widget)
     QImage image(":/gliderIm/ship.png");
     painter->drawImage(sLine, image);
-     //ToDo, draw the right rectangle. From 3;
 }
 
 QRectF Glider::boundingRect() const

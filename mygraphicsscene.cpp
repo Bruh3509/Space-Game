@@ -4,10 +4,6 @@ MyGraphicsScene::MyGraphicsScene()
 {
     this->glider = new Glider(this);
     addItem(this->glider);
-    collisionTimer = new QTimer();
-    collisionTimer->setInterval(3000);
-    QObject::connect(collisionTimer, SIGNAL(timeout()), this, SLOT(isCollidesAWB()));
-    collisionTimer->start();
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
@@ -42,26 +38,28 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
         break;
         */
     case Qt::Key_Space:
-        // ToDo delete bullets!!!
         if (glider->fire()) {
-            collisionTimer->stop();
             QPointF pt = QPointF(glider->getLine().center());
             Bullet *blt = new Bullet(pt);
             addItem(blt);
-            bulletsStash.push_back(blt);
-            QObject::connect(this, &MyGraphicsScene::awbCollision, [=](){ qDebug() << "collides"; }); // ToDO logic in deletion.
-            collisionTimer->start(3000);
+            QObject::connect(blt, SIGNAL(moved(Bullet*)), this, SLOT(checkCollisionAWB(Bullet*)));
         }
         break;
     case Qt::Key_Q:
-        this->asteroid = new Asteroid(this); // We do not need to save 1 obj. (the same with the bullets),
-                                             //I'll make the asteroid stash instead.
+        this->asteroid = new Asteroid(this); // We do not need to save the obj.
         addItem(this->asteroid);
         asteroidStash.push_back(this->asteroid);
     }
 }
 
-void MyGraphicsScene::isCollidesAWB()
+void MyGraphicsScene::checkCollisionAWB(Bullet *blt)
 {
-    emit awbCollision();
+    qDebug() << "blt";
+    QList<QGraphicsItem*> collisions = this->collidingItems(blt);
+
+    for (auto it : collisions)
+        delete it;
+
+    if (!collisions.empty())
+        delete blt;
 }
