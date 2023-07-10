@@ -7,9 +7,9 @@
 #include <QRandomGenerator>
 #include <QImage>
 #include <QTimer>
+#include <incomingobject.h>
 
-
-class Asteroid: public QObject, public QGraphicsItem
+class Asteroid: public QObject, public QGraphicsItem, protected IncomingObject
 {
     Q_OBJECT
 
@@ -18,8 +18,8 @@ public:
     void destructAsteroid();  // ??????????// realize explosion / flash  and delete image of asteroid from graphicScene
 
     QTimer *timer;
-signals:
-    void moved(Asteroid*); // To detect the collsiion with the glider.
+    void connectWithGlider(int&, int&) override;
+
 protected:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

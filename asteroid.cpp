@@ -33,7 +33,6 @@ Asteroid::Asteroid(QObject *parent): QObject(parent), QGraphicsItem()
 void Asteroid::moveAsteroid()
 {
     moveBy(0, this->speed);
-    emit moved(this);
 }
 
 void Asteroid::destructAsteroid()
@@ -77,4 +76,11 @@ QRectF Asteroid::boundingRect() const
         default:
             return secondLine;
         }
+}
+
+void Asteroid::connectWithGlider(int &HP, int &BULLETS)
+{
+    Q_UNUSED(BULLETS)
+
+    --HP;
 }

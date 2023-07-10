@@ -9,4 +9,7 @@
         <file>asteroid_1.png</file>
         <file>asteroid_2.png</file>
     </qresource>
+    <qresource prefix="/bullets">
+        <file>bullets.jpg</file>
+    </qresource>
 </RCC>

@@ -4,6 +4,7 @@ MyGraphicsScene::MyGraphicsScene()
 {
     this->glider = new Glider(this);
     addItem(this->glider);
+    QObject::connect(glider, SIGNAL(gameOver()), this, SLOT(gameOver()));
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
@@ -48,7 +49,6 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Q:
         Asteroid *asteroid = new Asteroid(this); // We do not need to save the obj., deleted field asteroid.
         addItem(asteroid);
-        QObject::connect(asteroid, SIGNAL(moved(Asteroid*)), this, SLOT(checkCollisionAWG(Asteroid*)));
     }
 }
 
@@ -64,12 +64,9 @@ void MyGraphicsScene::checkCollisionAWB(Bullet *blt)
         delete blt;
 }
 
-void MyGraphicsScene::checkCollisionAWG(Asteroid *asteroid)
+void MyGraphicsScene::gameOver()
 {
-    qDebug() << "aster";
-    QList<QGraphicsItem*> collisions = this->collidingItems(asteroid);
-    if (collisions.contains(glider)) {
-        delete asteroid;
-        glider->damaged();
-    }
+    // Something that happens when I loose.
+
+    // delete glider; //Just to check, not the all logic.
 }
