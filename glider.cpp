@@ -28,6 +28,8 @@ bool Glider::changeLine(LINE l)
             return true;
         } else
             return false;
+    default:
+        return false;
     }
 }
 
@@ -44,6 +46,8 @@ void Glider::connection(IncomingObject *collObj)
 {
     qDebug() << "collision with glider";
     collObj->connectWithGlider(health, bullets);
+    if (health == 0)
+        delete this; // TODO
 }
 
 QRectF Glider::getLine() const

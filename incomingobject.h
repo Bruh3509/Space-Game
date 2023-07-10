@@ -3,9 +3,8 @@
 #include <QGraphicsItem>
 #include <QObject>
 
-class IncomingObject
+class IncomingObject : public QGraphicsItem
 {
-    QOBJECT_H
 public:
     IncomingObject();
     virtual void connectWithGlider(int&, int&) = 0;

@@ -5,6 +5,7 @@ MyGraphicsScene::MyGraphicsScene()
     this->glider = new Glider(this);
     addItem(this->glider);
     QObject::connect(glider, SIGNAL(gameOver()), this, SLOT(gameOver()));
+    QObject::connect(glider, SIGNAL(collisionCheck()), this, SLOT(checkCollisionAWG()));
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
@@ -47,7 +48,7 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
         }
         break;
     case Qt::Key_Q:
-        Asteroid *asteroid = new Asteroid(this); // We do not need to save the obj., deleted field asteroid.
+        IncomingObject *asteroid = new Asteroid(this); // We do not need to save the obj., deleted field asteroid.
         addItem(asteroid);
     }
 }
@@ -62,6 +63,16 @@ void MyGraphicsScene::checkCollisionAWB(Bullet *blt)
 
     if (!collisions.empty())
         delete blt;
+}
+
+void MyGraphicsScene::checkCollisionAWG()
+{
+    QList<QGraphicsItem*> collisions = this->collidingItems(glider);
+
+    for (auto it : collisions) {
+        glider->connection(dynamic_cast<IncomingObject*>(it));
+        delete it;
+    }
 }
 
 void MyGraphicsScene::gameOver()

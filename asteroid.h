@@ -9,7 +9,7 @@
 #include <QTimer>
 #include <incomingobject.h>
 
-class Asteroid: public QObject, public QGraphicsItem, protected IncomingObject
+class Asteroid: public QObject,  public IncomingObject
 {
     Q_OBJECT
 

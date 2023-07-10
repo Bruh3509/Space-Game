@@ -1,6 +1,6 @@
 #include "asteroid.h"
 
-Asteroid::Asteroid(QObject *parent): QObject(parent), QGraphicsItem()
+Asteroid::Asteroid(QObject *parent): QObject(parent)
 {
     int type = QRandomGenerator::global()->bounded(3);
     int line = QRandomGenerator::global()->bounded(3) + 1;   // the line is ranked from 1 to 3
@@ -32,7 +32,7 @@ Asteroid::Asteroid(QObject *parent): QObject(parent), QGraphicsItem()
 
 void Asteroid::moveAsteroid()
 {
-    moveBy(0, this->speed);
+    Asteroid::moveBy(0, this->speed);
 }
 
 void Asteroid::destructAsteroid()
