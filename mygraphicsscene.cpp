@@ -10,9 +10,11 @@ MyGraphicsScene::MyGraphicsScene()
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
 {
+    IncomingObject *asteroid;
+    IncomingObject *ammo;
+
     QGraphicsScene::keyPressEvent(event);
-    switch(event->key())
-    {
+    switch (event->key()) {
     case Qt::Key_D:
 
         if (glider->changeLine(LINE::right)) {
@@ -47,9 +49,17 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
             QObject::connect(blt, SIGNAL(moved(Bullet*)), this, SLOT(checkCollisionAWB(Bullet*)));
         }
         break;
+
+    // Just to check theese faetures.
     case Qt::Key_Q:
-        IncomingObject *asteroid = new Asteroid(this); // We do not need to save the obj., deleted field asteroid.
+        asteroid = new Asteroid(this); // We do not need to save the obj., deleted field asteroid.
         addItem(asteroid);
+        break;
+
+    case Qt::Key_R:
+        ammo = new Ammo(this);
+        addItem(ammo);
+        break;
     }
 }
 

@@ -7,7 +7,7 @@ class IncomingObject : public QGraphicsItem
 {
 public:
     IncomingObject();
-    virtual void connectWithGlider(int&, int&) = 0;
+    virtual void connectWithGlider(int&, int&) const = 0;
 };
 
 #endif // INCOMINGOBJECT_H

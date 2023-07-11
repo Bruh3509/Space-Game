@@ -17,8 +17,8 @@ public:
     Asteroid(QObject*);
     void destructAsteroid();  // ??????????// realize explosion / flash  and delete image of asteroid from graphicScene
 
-    QTimer *timer;
-    void connectWithGlider(int&, int&) override;
+    QTimer *timer; // Why public ???
+    void connectWithGlider(int&, int&) const override;
 
 protected:
     QRectF boundingRect() const override;

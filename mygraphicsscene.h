@@ -9,6 +9,7 @@
 #include <glider.h>
 #include <bullet.h>
 #include <asteroid.h>
+#include <ammo.h>
 
 class MyGraphicsScene : public QGraphicsScene
 {
