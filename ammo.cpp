@@ -35,10 +35,10 @@ Ammo::Ammo(QObject *parent) : QObject(parent),  IncomingObject()
 void Ammo::move()
 {
     moveBy(0, 5);
-    /*
+
     if (this->scenePos().y() >= 758)
         delete this;
-    */
+
 }
 
 void Ammo::connectWithGlider(int &HP, int &BULLETS) const
