@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QPainter>
 #include <glider.h>
 #include <mygraphicsscene.h>
 

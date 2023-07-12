@@ -9,4 +9,10 @@
         <file>asteroid_1.png</file>
         <file>asteroid_2.png</file>
     </qresource>
+    <qresource prefix="/background">
+        <file>background_1.jpg</file>
+        <file>background_2.jpg</file>
+        <file>background_3.jpg</file>
+        <file>background_4.jpg</file>
+    </qresource>
 </RCC>

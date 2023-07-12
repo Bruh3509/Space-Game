@@ -13,6 +13,8 @@ class MyGraphicsScene : public QGraphicsScene
     Q_OBJECT
 public:
     MyGraphicsScene();
+    void drawBackground(QPainter *painter, const QRectF &rect) override;
+    int typeOfBackground{};
 signals:
     void repaintGlider(QRectF);
 protected:
