@@ -6,6 +6,28 @@ MyGraphicsScene::MyGraphicsScene()
     addItem(this->glider);
 
     this->typeOfBackground = 1 + QRandomGenerator::global()->bounded(4);
+
+    this->spawnTimer = new QTimer;
+    this->spawnTimer->setInterval(1000); // hardcode (: (maybe need to add a new variable for this value)
+    QObject::connect(spawnTimer, SIGNAL(timeout()), this, SLOT(spawnObject()));
+    spawnTimer->start();
+}
+
+void MyGraphicsScene::spawnObject(){
+    int num = 1 + QRandomGenerator::global()->bounded(100);
+    if (1 <= num && num <= 70){
+        Asteroid *asteroid = new Asteroid(this);
+        addItem(asteroid);
+    }
+    else if (71 <= num && num <= 85){
+        // TODO: create an object of monster class
+        qDebug() << "The monster was spawned";
+    }
+    else if (86 <= num && num <= 90){
+        // TODO: create an object of bonus class
+        qDebug() << "The bonus was spawned";
+    }
+    // at some values we can not spawn anything
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)

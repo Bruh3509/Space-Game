@@ -15,6 +15,7 @@ public:
     MyGraphicsScene();
     void drawBackground(QPainter *painter, const QRectF &rect) override;
     int typeOfBackground{};
+    QTimer *spawnTimer;
 signals:
     void repaintGlider(QRectF);
 protected:
@@ -22,6 +23,8 @@ protected:
 private:
     Glider *glider;
     Asteroid *asteroid;
+public slots:
+    void spawnObject();
 };
 
 #endif // MYGRAPHICSSCENE_H
