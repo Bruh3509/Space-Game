@@ -3,14 +3,11 @@
 #include <QGraphicsItem>
 #include <QObject>
 
-class IncomingObject : public QObject, public QGraphicsItem
+class IncomingObject : public QGraphicsItem
 {
-    QOBJECT_H
 public:
     IncomingObject();
-protected:
-    float speed;
-    QRectF rectSize;
+    virtual void connectWithGlider(int&, int&) const = 0;
 };
 
 #endif // INCOMINGOBJECT_H

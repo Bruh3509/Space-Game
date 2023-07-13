@@ -1,6 +1,6 @@
 #include "asteroid.h"
 
-Asteroid::Asteroid(QObject *parent): QObject(parent), QGraphicsItem()
+Asteroid::Asteroid(QObject *parent): QObject(parent), IncomingObject()
 {
     int type = QRandomGenerator::global()->bounded(3);
     int line = QRandomGenerator::global()->bounded(3) + 1;   // the line is ranked from 1 to 3
@@ -32,8 +32,7 @@ Asteroid::Asteroid(QObject *parent): QObject(parent), QGraphicsItem()
 
 void Asteroid::moveAsteroid()
 {
-    moveBy(0, this->speed);
-    emit moved(this);
+    Asteroid::moveBy(0, this->speed);
 }
 
 void Asteroid::destructAsteroid()
@@ -48,7 +47,7 @@ void Asteroid::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         Q_UNUSED(widget)
 
 
-        switch(this->whichLine){
+        switch (this->whichLine) {
         case 1:
             painter->drawImage(firstLine, this->imageOfAsteroid);
         break;
@@ -67,7 +66,7 @@ void Asteroid::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 QRectF Asteroid::boundingRect() const
 {
-        switch(this->whichLine){
+        switch (this->whichLine) {
         case 1:
             return firstLine;
         case 2:
@@ -77,4 +76,11 @@ QRectF Asteroid::boundingRect() const
         default:
             return secondLine;
         }
+}
+
+void Asteroid::connectWithGlider(int &HP, int &BULLETS) const
+{
+    Q_UNUSED(BULLETS)
+
+    --HP;
 }

@@ -4,13 +4,17 @@ MyGraphicsScene::MyGraphicsScene()
 {
     this->glider = new Glider(this);
     addItem(this->glider);
+    QObject::connect(glider, SIGNAL(gameOver()), this, SLOT(gameOver()));
+    QObject::connect(glider, SIGNAL(collisionCheck()), this, SLOT(checkCollisionAWG()));
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
 {
+    IncomingObject *asteroid;
+    IncomingObject *ammo;
+
     QGraphicsScene::keyPressEvent(event);
-    switch(event->key())
-    {
+    switch (event->key()) {
     case Qt::Key_D:
 
         if (glider->changeLine(LINE::right)) {
@@ -45,10 +49,17 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
             QObject::connect(blt, SIGNAL(moved(Bullet*)), this, SLOT(checkCollisionAWB(Bullet*)));
         }
         break;
+
+    // Just to check theese faetures.
     case Qt::Key_Q:
-        Asteroid *asteroid = new Asteroid(this); // We do not need to save the obj., deleted field asteroid.
+        asteroid = new Asteroid(this); // We do not need to save the obj., deleted field asteroid.
         addItem(asteroid);
-        QObject::connect(asteroid, SIGNAL(moved(Asteroid*)), this, SLOT(checkCollisionAWG(Asteroid*)));
+        break;
+
+    case Qt::Key_R:
+        ammo = new Ammo(this);
+        addItem(ammo);
+        break;
     }
 }
 
@@ -64,12 +75,19 @@ void MyGraphicsScene::checkCollisionAWB(Bullet *blt)
         delete blt;
 }
 
-void MyGraphicsScene::checkCollisionAWG(Asteroid *asteroid)
+void MyGraphicsScene::checkCollisionAWG()
 {
-    qDebug() << "aster";
-    QList<QGraphicsItem*> collisions = this->collidingItems(asteroid);
-    if (collisions.contains(glider)) {
-        delete asteroid;
-        glider->damaged();
+    QList<QGraphicsItem*> collisions = this->collidingItems(glider);
+
+    for (auto it : collisions) {
+        glider->connection(dynamic_cast<IncomingObject*>(it));
+        delete it;
     }
+}
+
+void MyGraphicsScene::gameOver()
+{
+    // Something that happens when I loose.
+
+    // delete glider; //Just to check, not the all logic.
 }

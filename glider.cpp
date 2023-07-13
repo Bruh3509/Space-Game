@@ -5,6 +5,11 @@ Glider::Glider(QObject *parent) : QObject(parent), QGraphicsItem()
     curLine = 2;
     bullets = 4;
     health = 3;
+
+    collisionTimer = new QTimer();
+    collisionTimer->setInterval(100);
+    QObject::connect(collisionTimer, &QTimer::timeout, this, [this](){ emit collisionCheck(); });
+    collisionTimer->start();
 }
 
 bool Glider::changeLine(LINE l)
@@ -23,6 +28,8 @@ bool Glider::changeLine(LINE l)
             return true;
         } else
             return false;
+    default:
+        return false;
     }
 }
 
@@ -35,14 +42,14 @@ bool Glider::fire()
         return false;
 }
 
-void Glider::damaged()
+void Glider::connection(IncomingObject *collObj)
 {
-    qDebug() << "Got damage";
-    --health;
-    if (health == 0) {
-        // SIGNAL to stop the game.
-    }
+    qDebug() << "collision with glider";
+    collObj->connectWithGlider(health, bullets);
+    if (health == 0)
+        delete this; // TODO
 }
+
 QRectF Glider::getLine() const
 {
     switch (curLine)
