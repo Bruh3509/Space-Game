@@ -17,7 +17,6 @@ class MyGraphicsScene : public QGraphicsScene
 public:
     MyGraphicsScene();
     void drawBackground(QPainter *painter, const QRectF &rect) override;
-    int typeOfBackground{};
     
 signals:
     void repaintGlider(QRectF);
@@ -26,12 +25,16 @@ private slots:
     void checkCollisionAWB(Bullet*); // AWB - Asteroid with Bullet.
     void checkCollisionAWG(); // AWG - Asteroid with Glider.
     void gameOver();
+    void spawnObject();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 private:
     Glider *glider;
     QTimer *collisionTimer();
+    Asteroid *asteroid;
+    int typeOfBackground{};
+    QTimer *spawnTimer;
 };
 
 #endif // MYGRAPHICSSCENE_H
