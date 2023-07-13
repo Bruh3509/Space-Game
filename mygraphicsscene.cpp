@@ -10,6 +10,8 @@ MyGraphicsScene::MyGraphicsScene()
     this->spawnTimer = new QTimer;
     this->spawnTimer->setInterval(1000); // hardcode (: (maybe need to add a new variable for this value)
     QObject::connect(spawnTimer, SIGNAL(timeout()), this, SLOT(spawnObject()));
+    QObject::connect(glider, SIGNAL(gameOver()), this, SLOT(gameOver()));
+    QObject::connect(glider, SIGNAL(collisionCheck()), this, SLOT(checkCollisionAWG()));
     spawnTimer->start();
 }
 
@@ -28,9 +30,6 @@ void MyGraphicsScene::spawnObject(){
         qDebug() << "The bonus was spawned";
     }
     // at some values we can not spawn anything
-
-    QObject::connect(glider, SIGNAL(gameOver()), this, SLOT(gameOver()));
-    QObject::connect(glider, SIGNAL(collisionCheck()), this, SLOT(checkCollisionAWG()));
 }
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
