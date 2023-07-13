@@ -16,10 +16,17 @@ class MyGraphicsScene : public QGraphicsScene
     Q_OBJECT
 public:
     MyGraphicsScene();
+    void drawBackground(QPainter *painter, const QRectF &rect) override;
+    int typeOfBackground{};
+    
+signals:
+    void repaintGlider(QRectF);
+
 private slots:
     void checkCollisionAWB(Bullet*); // AWB - Asteroid with Bullet.
     void checkCollisionAWG(); // AWG - Asteroid with Glider.
     void gameOver();
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 private:

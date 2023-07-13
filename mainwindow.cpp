@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     //QObject::connect(scene, SIGNAL(sceneRectChanged(QRectF)), ui->graphicsView, SLOT(updateSceneRect(QRectF)));
 }
 
+
+
 MainWindow::~MainWindow()
 {
     delete ui;

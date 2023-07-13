@@ -4,6 +4,9 @@ MyGraphicsScene::MyGraphicsScene()
 {
     this->glider = new Glider(this);
     addItem(this->glider);
+
+    this->typeOfBackground = 1 + QRandomGenerator::global()->bounded(4);
+
     QObject::connect(glider, SIGNAL(gameOver()), this, SLOT(gameOver()));
     QObject::connect(glider, SIGNAL(collisionCheck()), this, SLOT(checkCollisionAWG()));
 }
@@ -61,6 +64,30 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
         addItem(ammo);
         break;
     }
+}
+
+void MyGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect){
+    Q_UNUSED(rect);
+
+    QImage background;
+    switch (this->typeOfBackground) {
+    case 1:
+        background = QImage(":/background/background_1.jpg");
+        break;
+    case 2:
+        background = QImage(":/background/background_2.jpg");
+        break;
+    case 3:
+        background = QImage(":/background/background_3.jpg");
+        break;
+    case 4:
+        background = QImage(":/background/background_4.jpg");
+        break;
+    default:
+        break;
+    }
+
+    painter->drawImage(sceneRect(), background);
 }
 
 void MyGraphicsScene::checkCollisionAWB(Bullet *blt)
