@@ -4,24 +4,32 @@ Glider::Glider(QObject *parent) : QObject(parent), QGraphicsItem()
 {
     curLine = 2;
     bullets = 4;
+    health = 3;
+
+    collisionTimer = new QTimer();
+    collisionTimer->setInterval(100);
+    QObject::connect(collisionTimer, &QTimer::timeout, this, [this](){ emit collisionCheck(); });
+    collisionTimer->start();
 }
 
 bool Glider::changeLine(LINE l)
 {
     switch (l)
     {
-    case left:
+    case LINE::left:
         if (curLine != 1) {
             --curLine;
             return true;
         } else
             return false;
-    case right:
+    case LINE::right:
         if (curLine != 3) {
             ++curLine;
             return true;
         } else
             return false;
+    default:
+        return false;
     }
 }
 
@@ -34,6 +42,14 @@ bool Glider::fire()
         return false;
 }
 
+void Glider::connection(IncomingObject *collObj)
+{
+    qDebug() << "collision with glider";
+    collObj->connectWithGlider(health, bullets);
+    if (health == 0)
+        delete this; // TODO
+}
+
 QRectF Glider::getLine() const
 {
     switch (curLine)
@@ -44,15 +60,17 @@ QRectF Glider::getLine() const
         return sLine;
     case 3:
         return thLine;
+    default:
+        return sLine;
     }
 }
+
 void Glider::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option)
     Q_UNUSED(widget)
     QImage image(":/gliderIm/ship.png");
     painter->drawImage(sLine, image);
-     //ToDo, draw the right rectangle. From 3;
 }
 
 QRectF Glider::boundingRect() const

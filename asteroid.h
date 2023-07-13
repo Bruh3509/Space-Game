@@ -7,9 +7,9 @@
 #include <QRandomGenerator>
 #include <QImage>
 #include <QTimer>
+#include <incomingobject.h>
 
-
-class Asteroid: public QObject, public QGraphicsItem
+class Asteroid: public QObject,  public IncomingObject
 {
     Q_OBJECT
 
@@ -17,7 +17,8 @@ public:
     Asteroid(QObject*);
     void destructAsteroid();  // ??????????// realize explosion / flash  and delete image of asteroid from graphicScene
 
-    QTimer *timer;
+    QTimer *timer; // Why public ???
+    void connectWithGlider(int&, int&) const override;
 
 protected:
     QRectF boundingRect() const override;
@@ -28,9 +29,9 @@ private:
     int speed;
     QImage imageOfAsteroid;
 
-    const QRectF firstLine = QRectF(QPoint(90.5,-100), QPoint(190.5, 0));
-    const QRectF secondLine = QRectF(QPoint(340.5,-100), QPoint(440.5, 0));
-    const QRectF thirdLine = QRectF(QPoint(590.5,-100), QPoint(690.5, 0));
+    const QRectF firstLine = QRectF(QPointF(90.5,-100), QPointF(190.5, 0));
+    const QRectF secondLine = QRectF(QPointF(340.5,-100), QPointF(440.5, 0));
+    const QRectF thirdLine = QRectF(QPointF(590.5,-100), QPointF(690.5, 0));
 
 private slots:
     void moveAsteroid();

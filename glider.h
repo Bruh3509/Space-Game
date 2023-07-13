@@ -1,10 +1,13 @@
 #ifndef GLIDER_H
 #define GLIDER_H
+#include <QDebug>
 #include <QObject>
 #include <QGraphicsItem>
 #include <QPainter>
+#include <QTimer>
+#include <incomingobject.h>
 
-enum LINE {left, right};
+enum class LINE {left, right};
 
 class Glider : public QObject, public QGraphicsItem
 {
@@ -13,7 +16,13 @@ public:
     Glider(QObject*);
     bool changeLine(LINE);
     bool fire();
+    void connection(IncomingObject*);
     QRectF getLine() const;
+
+signals:
+    void gameOver();
+    void collisionCheck();
+
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
@@ -23,6 +32,9 @@ private:
     int curLine;
     int health;
     int bullets;
+
+    QTimer *collisionTimer;
+
     // I change number.
     const QRectF fLine = QRectF(QPoint(83,625), QPoint(183,725));
     const QRectF sLine = QRectF(QPoint(333,625), QPoint(433,725));
