@@ -1,4 +1,4 @@
 #include "incomingobject.h"
 
-IncomingObject::IncomingObject()
+IncomingObject::IncomingObject() : QGraphicsItem()
 {}
