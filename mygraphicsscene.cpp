@@ -5,7 +5,7 @@ MyGraphicsScene::MyGraphicsScene()
     this->glider = new Glider(this);
     addItem(this->glider);
 
-    this->typeOfBackground = 1 + QRandomGenerator::global()->bounded(4);
+    this->typeOfBackground = 1 + QRandomGenerator::global()->bounded(7);
 
     this->spawnTimer = new QTimer;
     this->spawnTimer->setInterval(1000); // hardcode (: (maybe need to add a new variable for this value)
@@ -13,6 +13,9 @@ MyGraphicsScene::MyGraphicsScene()
     QObject::connect(glider, SIGNAL(gameOver()), this, SLOT(gameOver()));
     QObject::connect(glider, SIGNAL(collisionCheck()), this, SLOT(checkCollisionAWG()));
     spawnTimer->start();
+
+//    this->ufo = new Ufo(this);
+//    QObject::connect(ufo, SIGNAL(shooted()))
 }
 
 void MyGraphicsScene::spawnObject(){
@@ -22,8 +25,18 @@ void MyGraphicsScene::spawnObject(){
         addItem(asteroid);
     }
     else if (71 <= num && num <= 85){
-        // TODO: create an object of monster class
-        qDebug() << "The monster was spawned";
+        num = 1 + QRandomGenerator::global()->bounded(100);
+        // spawn UFO
+        if (1 <= num && num <= 15){
+            IncomingObject *ufo;
+            ufo = new Ufo(this);
+            addItem(ufo);
+            QObject::connect(dynamic_cast<Ufo*>(ufo), SIGNAL(shooted(Ufo*)), this, SLOT(spawnUfoBullet(Ufo*)));
+        }
+        // spawn another monster
+        else{
+            qDebug() << "The monster was spawned";
+        }
     }
     else if (86 <= num && num <= 90){
         // TODO: create an object of bonus class
@@ -36,6 +49,8 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
 {
     IncomingObject *asteroid;
     IncomingObject *ammo;
+   // IncomingObject *ufo;
+    IncomingObject *ufoBullet;
 
     QGraphicsScene::keyPressEvent(event);
     switch (event->key()) {
@@ -84,7 +99,23 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
         ammo = new Ammo(this);
         addItem(ammo);
         break;
+
+    case Qt::Key_T:
+        Ufo *ufo = new Ufo(this);
+        addItem(ufo);
+//        ufoBullet = new UfoBullet(QPoint(ufo->scenePos().rx(), ufo->scenePos().ry()), this);
+//        addItem(ufoBullet);
+        QObject::connect(ufo, SIGNAL(shooted(Ufo*)), this, SLOT(spawnUfoBullet(Ufo*)));
+        break;
     }
+}
+
+void MyGraphicsScene::spawnUfoBullet(Ufo *ufo){
+    IncomingObject *bullet;
+//    IncomingObject *ufo;
+//    ufo = new Ufo(this);
+    bullet = new UfoBullet(QPoint(ufo->sceneBoundingRect().x() + 49, ufo->sceneBoundingRect().y() + 140), this);
+    addItem(bullet);
 }
 
 void MyGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect){
@@ -103,6 +134,15 @@ void MyGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect){
         break;
     case 4:
         background = QImage(":/background/background_4.jpg");
+        break;
+    case 5:
+        background = QImage(":/background/background_5.jpg");
+        break;
+    case 6:
+        background = QImage(":/background/background_6.jpg");
+        break;
+    case 7:
+        background = QImage(":/background/background_7.jpg");
         break;
     default:
         break;
