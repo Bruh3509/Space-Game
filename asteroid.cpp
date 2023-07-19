@@ -33,6 +33,8 @@ Asteroid::Asteroid(QObject *parent): QObject(parent), IncomingObject()
 void Asteroid::moveAsteroid()
 {
     Asteroid::moveBy(0, this->speed);
+    if (this->scenePos().y() >= 860)
+        delete this;
 }
 
 void Asteroid::destructAsteroid()
@@ -83,4 +85,11 @@ void Asteroid::connectWithGlider(int &HP, int &BULLETS) const
     Q_UNUSED(BULLETS)
 
     --HP;
+}
+
+Asteroid::~Asteroid(){
+//    #ifdef DEBUG
+//    qDebug() << " asteroid was deleted";
+//    #endif
+    delete timer;
 }

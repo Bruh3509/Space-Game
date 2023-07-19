@@ -10,6 +10,8 @@
 #include <bullet.h>
 #include <asteroid.h>
 #include <ammo.h>
+#include <ufo.h>
+#include <ufobullet.h>
 
 class MyGraphicsScene : public QGraphicsScene
 {
@@ -24,6 +26,7 @@ signals:
 private slots:
     void checkCollisionAWB(Bullet*); // AWB - Asteroid with Bullet.
     void checkCollisionAWG(); // AWG - Asteroid with Glider.
+    void spawnUfoBullet(Ufo*);
     void gameOver();
     void spawnObject();
 
@@ -35,6 +38,7 @@ private:
     Asteroid *asteroid;
     int typeOfBackground{};
     QTimer *spawnTimer;
+   // IncomingObject *ufo;
 };
 
 #endif // MYGRAPHICSSCENE_H

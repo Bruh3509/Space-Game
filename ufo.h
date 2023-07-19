@@ -1,5 +1,5 @@
-#ifndef ASTEROID_H
-#define ASTEROID_H
+#ifndef UFO_H
+#define UFO_H
 
 #include <QObject>
 #include <QGraphicsItem>
@@ -8,34 +8,41 @@
 #include <QImage>
 #include <QTimer>
 #include <incomingobject.h>
+#include <ufobullet.h>
 
-class Asteroid: public QObject,  public IncomingObject
+class Ufo: public QObject,  public IncomingObject
 {
     Q_OBJECT
 
 public:
-    Asteroid(QObject*);
-    void destructAsteroid();  // ??????????// realize explosion / flash  and delete image of asteroid from graphicScene
-    ~Asteroid();
-
-    QTimer *timer; // Why public ???
-    void connectWithGlider(int&, int&) const override;
+    Ufo(QObject*);
+    void connectWithGlider(int&, int&) const override{};
+    ~Ufo();
 
 protected:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
-    int whichLine;
-    int speed;
-    QImage imageOfAsteroid;
-
+    QTimer *ufoTimer;
+    QTimer *shootTimer;
+    int line;
+    int curLine;
+    int newLine;
+    int ufoTimerValue = 3000;
     const QRectF firstLine = QRectF(QPointF(90.5,-100), QPointF(190.5, 0));
     const QRectF secondLine = QRectF(QPointF(340.5,-100), QPointF(440.5, 0));
     const QRectF thirdLine = QRectF(QPointF(590.5,-100), QPointF(690.5, 0));
 
 private slots:
-    void moveAsteroid();
+    void moveUfoDown();
+    void whereMoveUfo();
+    void moveUfo();
+    void shoot();
+
+signals:
+    void shooted(Ufo*);
+
 };
 
-#endif // ASTEROID_H
+#endif // UFO_H

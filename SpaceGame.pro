@@ -16,7 +16,9 @@ SOURCES += \
     incomingobject.cpp \
     main.cpp \
     mainwindow.cpp \
-    mygraphicsscene.cpp
+    mygraphicsscene.cpp \
+    ufo.cpp \
+    ufobullet.cpp
 
 HEADERS += \
     ammo.h \
@@ -25,7 +27,9 @@ HEADERS += \
     glider.h \
     incomingobject.h \
     mainwindow.h \
-    mygraphicsscene.h
+    mygraphicsscene.h \
+    ufo.h \
+    ufobullet.h
 
 FORMS += \
     mainwindow.ui
