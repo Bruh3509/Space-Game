@@ -16,6 +16,7 @@ SOURCES += \
     incomingobject.cpp \
     main.cpp \
     mainwindow.cpp \
+    movingmonster.cpp \
     mygraphicsscene.cpp \
     ufo.cpp \
     ufobullet.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     glider.h \
     incomingobject.h \
     mainwindow.h \
+    movingmonster.h \
     mygraphicsscene.h \
     ufo.h \
     ufobullet.h

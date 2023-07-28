@@ -27,11 +27,16 @@ void MyGraphicsScene::spawnObject(){
     else if (71 <= num && num <= 85){
         num = 1 + QRandomGenerator::global()->bounded(100);
         // spawn UFO
-        if (1 <= num && num <= 15){
+        if (1 <= num && num < 15){
             IncomingObject *ufo;
             ufo = new Ufo(this);
             addItem(ufo);
             QObject::connect(dynamic_cast<Ufo*>(ufo), SIGNAL(shooted(Ufo*)), this, SLOT(spawnUfoBullet(Ufo*)));
+        }
+        else if (15 <= num && num < 25){
+            IncomingObject *movingMonster;
+            movingMonster = new MovingMonster(this);
+            addItem(movingMonster);
         }
         // spawn another monster
         else{
@@ -51,6 +56,7 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
     IncomingObject *ammo;
    // IncomingObject *ufo;
     IncomingObject *ufoBullet;
+    IncomingObject *movingMonster;
 
     QGraphicsScene::keyPressEvent(event);
     switch (event->key()) {
@@ -98,6 +104,12 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_R:
         ammo = new Ammo(this);
         addItem(ammo);
+        break;
+
+    case Qt::Key_Y:
+        movingMonster = new MovingMonster(this);
+        addItem(movingMonster);
+       // movingMonster->setEnabled();
         break;
 
     case Qt::Key_T:
