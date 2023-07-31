@@ -19,6 +19,7 @@ public:
 
     UfoBullet(QPointF, QObject*);
     void connectWithGlider(int&, int&) const override;
+    void connectWithBullet() override {};
     ~UfoBullet();
 
 private:

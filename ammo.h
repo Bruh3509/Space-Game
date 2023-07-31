@@ -14,8 +14,9 @@ class Ammo : public QObject,  public IncomingObject
     Q_OBJECT
 public:
     Ammo(QObject *parent = nullptr);
-    ~Ammo();
     void connectWithGlider(int&, int&) const override;
+    void connectWithBullet() override {};
+    ~Ammo();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

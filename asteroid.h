@@ -20,6 +20,7 @@ public:
 
     QTimer *timer; // Why public ???
     void connectWithGlider(int&, int&) const override;
+    void connectWithBullet() override;
 
 protected:
     QRectF boundingRect() const override;

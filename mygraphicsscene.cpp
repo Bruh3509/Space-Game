@@ -165,11 +165,10 @@ void MyGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect){
 
 void MyGraphicsScene::checkCollisionAWB(Bullet *blt)
 {
-    qDebug() << "blt";
     QList<QGraphicsItem*> collisions = this->collidingItems(blt);
 
     for (auto it : collisions)
-        delete it;
+        dynamic_cast<IncomingObject*>(it)->connectWithBullet();
 
     if (!collisions.empty())
         delete blt;

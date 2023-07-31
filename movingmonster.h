@@ -17,6 +17,7 @@ class MovingMonster: public QObject,  public IncomingObject
 public:
     MovingMonster(QObject*);
     void connectWithGlider(int&, int&) const override;
+    void connectWithBullet() override;
     ~MovingMonster();
 
 protected:

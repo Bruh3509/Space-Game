@@ -87,6 +87,11 @@ void Asteroid::connectWithGlider(int &HP, int &BULLETS) const
     --HP;
 }
 
+void Asteroid::connectWithBullet()
+{
+    delete this;
+}
+
 Asteroid::~Asteroid(){
 //    #ifdef DEBUG
 //    qDebug() << " asteroid was deleted";

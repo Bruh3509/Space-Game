@@ -17,6 +17,7 @@ class Ufo: public QObject,  public IncomingObject
 public:
     Ufo(QObject*);
     void connectWithGlider(int&, int&) const override{};
+    void connectWithBullet() override;
     ~Ufo();
 
 protected:

@@ -5,6 +5,7 @@
 #include <QtDebug>
 #include <QVector>
 #include <QTimer>
+#include <typeinfo>
 #include <incomingobject.h>
 #include <glider.h>
 #include <bullet.h>

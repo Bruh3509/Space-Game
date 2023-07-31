@@ -101,6 +101,11 @@ void MovingMonster::connectWithGlider(int &HP, int &BULLETS) const
     --HP;
 }
 
+void MovingMonster::connectWithBullet()
+{
+    this->deleteLater();
+}
+
 MovingMonster::~MovingMonster(){
     delete speedTimer;
 }

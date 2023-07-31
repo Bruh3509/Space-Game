@@ -135,6 +135,11 @@ void Ufo::shoot(){
     QObject::disconnect(shootTimer, SIGNAL(timeout()), this, SLOT(shoot()));
 }
 
+void Ufo::connectWithBullet()
+{
+    this->deleteLater();
+}
+
 Ufo::~Ufo(){
     delete ufoTimer;
     delete shootTimer;
