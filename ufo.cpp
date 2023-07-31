@@ -21,19 +21,19 @@ void Ufo::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
     switch (this->line) {
     case 1:
         painter->drawImage(firstLine, QImage(":/ufo/ufo.png"));
-        this->line = 1;
+        //this->line = 1;
         this->curLine = 1;
         break;
 
     case 2:
         painter->drawImage(secondLine, QImage(":/ufo/ufo.png"));
-        this->line = 2;
+        //this->line = 2;
         this->curLine = 2;
         break;
 
     case 3:
         painter->drawImage(thirdLine, QImage(":/ufo/ufo.png"));
-        this->line = 3;
+        //this->line = 3;
         this->curLine = 3;
         break;
 

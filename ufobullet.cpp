@@ -17,6 +17,7 @@ UfoBullet::UfoBullet(QPointF center, QObject *parent): QObject(parent), Incoming
 
 void UfoBullet::moveUfoBullet(){
     moveBy(0, 10);
+
     if (this->scenePos().y() >= 700){
         delete this;
     }

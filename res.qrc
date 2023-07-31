@@ -24,4 +24,12 @@
     <qresource prefix="/ufo">
         <file>ufo.png</file>
     </qresource>
+    <qresource prefix="/movingMonster">
+        <file>moon_2.png</file>
+        <file>blackHole.png</file>
+        <file>blackHole_1.png</file>
+        <file>moon_1.png</file>
+        <file>moon.png</file>
+        <file>black.png</file>
+    </qresource>
 </RCC>

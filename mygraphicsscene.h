@@ -12,6 +12,7 @@
 #include <ammo.h>
 #include <ufo.h>
 #include <ufobullet.h>
+#include <movingmonster.h>
 
 class MyGraphicsScene : public QGraphicsScene
 {
