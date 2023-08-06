@@ -12,6 +12,8 @@ enum class LINE {left, right};
 class Glider : public QObject, public QGraphicsItem
 {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
+
 public:
     Glider(QObject*);
     bool changeLine(LINE);
@@ -33,7 +35,7 @@ private:
     int health;
     int bullets;
 
-    QTimer *collisionTimer;
+    std::unique_ptr<QTimer> collisionTimer;
 
     // I change number.
     const QRectF fLine = QRectF(QPoint(83,625), QPoint(183,725));

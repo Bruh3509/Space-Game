@@ -24,9 +24,9 @@ Asteroid::Asteroid(QObject *parent): QObject(parent), IncomingObject()
     default: break;
     }
 
-    timer = new QTimer();
+    timer = std::make_unique<QTimer>();
     timer->setInterval(15);
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(moveAsteroid()));
+    QObject::connect(timer.get(), SIGNAL(timeout()), this, SLOT(moveAsteroid()));
     timer->start();
 }
 
@@ -37,47 +37,42 @@ void Asteroid::moveAsteroid()
         delete this;
 }
 
-void Asteroid::destructAsteroid()
+void Asteroid::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
-}
+    Q_UNUSED(option)
+    Q_UNUSED(widget)
 
 
-void Asteroid::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    switch (this->whichLine) {
+    case 1:
+        painter->drawImage(firstLine, this->imageOfAsteroid);
+    break;
 
-        Q_UNUSED(option)
-        Q_UNUSED(widget)
+    case 2:
+        painter->drawImage(secondLine, this->imageOfAsteroid);
+    break;
 
+    case 3:
+        painter->drawImage(thirdLine, this->imageOfAsteroid);
+    break;
 
-        switch (this->whichLine) {
-        case 1:
-            painter->drawImage(firstLine, this->imageOfAsteroid);
-        break;
-
-        case 2:
-            painter->drawImage(secondLine, this->imageOfAsteroid);
-        break;
-
-        case 3:
-            painter->drawImage(thirdLine, this->imageOfAsteroid);
-        break;
-
-        default: break;
-        }
+    default: break;
+    }
 }
 
 QRectF Asteroid::boundingRect() const
 {
-        switch (this->whichLine) {
-        case 1:
-            return firstLine;
-        case 2:
-            return secondLine;
-        case 3:
-            return thirdLine;
-        default:
-            return secondLine;
-        }
+    switch (this->whichLine) {
+    case 1:
+        return firstLine;
+    case 2:
+        return secondLine;
+    case 3:
+        return thirdLine;
+    default:
+        return secondLine;
+    }
 }
 
 void Asteroid::connectWithGlider(int &HP, int &BULLETS) const
@@ -90,11 +85,4 @@ void Asteroid::connectWithGlider(int &HP, int &BULLETS) const
 void Asteroid::connectWithBullet()
 {
     delete this;
-}
-
-Asteroid::~Asteroid(){
-//    #ifdef DEBUG
-//    qDebug() << " asteroid was deleted";
-//    #endif
-    delete timer;
 }

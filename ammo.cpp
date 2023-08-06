@@ -26,9 +26,9 @@ Ammo::Ammo(QObject *parent) : QObject(parent),  IncomingObject()
         break;
     }
 
-    timer = new QTimer();
+    timer = std::make_unique<QTimer>();
     timer->setInterval(10);
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+    QObject::connect(timer.get(), SIGNAL(timeout()), this, SLOT(move()));
     timer->start();
 }
 
@@ -38,7 +38,6 @@ void Ammo::move()
 
     if (this->scenePos().y() >= 758)
         delete this;
-
 }
 
 void Ammo::connectWithGlider(int &HP, int &BULLETS) const
@@ -59,10 +58,4 @@ void Ammo::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 QRectF Ammo::boundingRect() const
 {
     return line;
-}
-
-Ammo::~Ammo()
-{
-    qDebug() << "ammo deleted";
-    delete timer;
 }

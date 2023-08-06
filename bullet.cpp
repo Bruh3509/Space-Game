@@ -4,9 +4,9 @@ Bullet::Bullet(QPointF gliderPos, QObject *parent) : QObject(parent), QGraphicsI
 {
     gliderYPos = gliderPos.ry();
     gliderXPos = gliderPos.rx();
-    timer = new QTimer();
+    timer = std::make_unique<QTimer>();
     timer->setInterval(10);
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+    QObject::connect(timer.get(), SIGNAL(timeout()), this, SLOT(move()));
     timer->start();
 }
 
@@ -30,13 +30,4 @@ QRectF Bullet::boundingRect() const
 {
     return QRectF(QPointF(gliderXPos - 20, gliderYPos - 80), QPointF(gliderXPos + 20, gliderYPos - 50));
 
-}
-
-Bullet::~Bullet()
-{
-    #ifdef DEBUG
-    qDebug() << "timer deleted";
-    #endif // DEBUG
-
-    delete timer;
 }

@@ -5,9 +5,9 @@ UfoBullet::UfoBullet(QPointF center, QObject *parent): QObject(parent), Incoming
     bulletCordX = center.rx();
     bulletCordY = center.ry();
 
-    this->ufoBulletTimer = new QTimer;
+    this->ufoBulletTimer = std::make_unique<QTimer>();
     ufoBulletTimer->setInterval(20);
-    QObject::connect(ufoBulletTimer, SIGNAL(timeout()), this, SLOT(moveUfoBullet()));
+    QObject::connect(ufoBulletTimer.get(), SIGNAL(timeout()), this, SLOT(moveUfoBullet()));
     ufoBulletTimer->start();
 
     qDebug() << "aa";
@@ -42,9 +42,4 @@ void UfoBullet::connectWithGlider(int &HP, int &BULLETS) const
 QRectF UfoBullet::boundingRect() const
 {
     return QRectF(QPoint(bulletCordX - 20, bulletCordY - 80), QPointF(bulletCordX + 20, bulletCordY - 50));
-}
-
-UfoBullet::~UfoBullet(){
-    delete ufoBulletTimer;
-    qDebug() << "bb";
 }

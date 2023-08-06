@@ -20,10 +20,9 @@ public:
     UfoBullet(QPointF, QObject*);
     void connectWithGlider(int&, int&) const override;
     void connectWithBullet() override {};
-    ~UfoBullet();
 
 private:
-    QTimer *ufoBulletTimer;
+    std::unique_ptr<QTimer> ufoBulletTimer;
     int bulletCordX;
     int bulletCordY;
     const QRectF firstLine = QRectF(QPointF(90.5,-100), QPointF(190.5, 0));

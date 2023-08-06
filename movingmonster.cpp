@@ -4,10 +4,10 @@ MovingMonster::MovingMonster(QObject *parent): QObject(parent), IncomingObject()
 {
     this->line = QRandomGenerator::global()->bounded(3) + 1;
 
-    speedTimer = new QTimer();
+    speedTimer = std::make_unique<QTimer>();
     speedTimer->setInterval(30);
     speedTimer->start();
-    QObject::connect(speedTimer, SIGNAL(timeout()), this, SLOT(move()));
+    QObject::connect(speedTimer.get(), SIGNAL(timeout()), this, SLOT(move()));
 }
 
 QRectF MovingMonster::boundingRect() const{
@@ -74,7 +74,7 @@ void MovingMonster::move(){
 
         ++counter, blackHoleIndicator = 1;
 
-        QObject::disconnect(speedTimer, SIGNAL(timeout()), this, SLOT(move()));
+        QObject::disconnect(speedTimer.get(), SIGNAL(timeout()), this, SLOT(move()));
         QTimer::singleShot(2400, this, SLOT(showBlackHole()));
         QTimer::singleShot(2500, this, SLOT(changeLine()));
     }
@@ -82,7 +82,7 @@ void MovingMonster::move(){
 
 void MovingMonster::changeLine(){
     blackHoleIndicator = 0;
-    QObject::connect(speedTimer, SIGNAL(timeout()), this, SLOT(move()));
+    QObject::connect(speedTimer.get(), SIGNAL(timeout()), this, SLOT(move()));
 }
 
 void MovingMonster::hideBlackHole(){
@@ -104,8 +104,4 @@ void MovingMonster::connectWithGlider(int &HP, int &BULLETS) const
 void MovingMonster::connectWithBullet()
 {
     this->deleteLater();
-}
-
-MovingMonster::~MovingMonster(){
-    delete speedTimer;
 }
