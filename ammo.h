@@ -16,6 +16,7 @@ public:
     Ammo(QObject *parent = nullptr);
     void connectWithGlider(int&, int&) const override;
     void connectWithBullet() override {};
+    ~Ammo();
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -29,7 +30,7 @@ private:
     QImage image;
     QRectF line;
 
-    std::unique_ptr<QTimer> timer;
+    QTimer *timer;
 };
 
 #endif // AMMO_H

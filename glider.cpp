@@ -6,9 +6,9 @@ Glider::Glider(QObject *parent) : QObject(parent), QGraphicsItem()
     bullets = 4;
     health = 3;
 
-    collisionTimer = std::make_unique<QTimer>();
+    collisionTimer = new QTimer();
     collisionTimer->setInterval(100);
-    QObject::connect(collisionTimer.get(), &QTimer::timeout, this, [this](){ emit collisionCheck(); });
+    QObject::connect(collisionTimer, &QTimer::timeout, this, [this](){ emit collisionCheck(); });
     collisionTimer->start();
 }
 

@@ -8,9 +8,9 @@
 class Bullet : public QObject, public QGraphicsItem
 {
     Q_OBJECT
-    Q_INTERFACES(QGraphicsItem)
 public:
     Bullet(QPointF, QObject *parent = nullptr);
+    ~Bullet();
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QRectF boundingRect() const override;
@@ -19,7 +19,7 @@ signals:
 private slots:
     void move();
 private:
-    std::unique_ptr<QTimer> timer;
+    QTimer *timer;
     float gliderXPos;
     float gliderYPos;
 };

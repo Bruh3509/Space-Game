@@ -4,12 +4,12 @@ Ufo::Ufo(QObject *parent): QObject(parent), IncomingObject()
 {
     this->line = QRandomGenerator::global()->bounded(3) + 1;
 
-    ufoTimer = std::make_unique<QTimer>();
+    ufoTimer = new QTimer();
     ufoTimer->setInterval(25);
-    QObject::connect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(moveUfoDown()));
+    QObject::connect(ufoTimer, SIGNAL(timeout()), this, SLOT(moveUfoDown()));
     ufoTimer->start();
 
-    shootTimer = std::make_unique<QTimer>();
+    shootTimer = new QTimer();
     shootTimer->setInterval(ufoTimerValue / 2);
 }
 
@@ -59,10 +59,10 @@ void Ufo::moveUfoDown(){
     Ufo::moveBy(0, 4);
     if (this->scenePos().ry() >= 150){
         ufoTimer->setInterval(ufoTimerValue);
-        QObject::disconnect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(moveUfoDown()));
-        QObject::connect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
+        QObject::disconnect(ufoTimer, SIGNAL(timeout()), this, SLOT(moveUfoDown()));
+        QObject::connect(ufoTimer, SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
 
-        QObject::connect(shootTimer.get(), SIGNAL(timeout()), this, SLOT(shoot()));
+        QObject::connect(shootTimer, SIGNAL(timeout()), this, SLOT(shoot()));
         shootTimer->start();
     }
 }
@@ -87,55 +87,60 @@ void Ufo::whereMoveUfo(){
     }
 
     ufoTimer->setInterval(30);
-    QObject::disconnect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
-    QObject::connect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(moveUfo()));
+    QObject::disconnect(ufoTimer, SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
+    QObject::connect(ufoTimer, SIGNAL(timeout()), this, SLOT(moveUfo()));
 }
 
 void Ufo::moveUfo(){
     if (newLine == 2 && this->sceneBoundingRect().x() < secondLine.left()){
         this->moveBy(3, 0);
         if (this->sceneBoundingRect().x() >= secondLine.left()){
-            QObject::disconnect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(moveUfo()));
+            QObject::disconnect(ufoTimer, SIGNAL(timeout()), this, SLOT(moveUfo()));
             ufoTimer->setInterval(ufoTimerValue);
-            QObject::connect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
-            QObject::connect(shootTimer.get(), SIGNAL(timeout()), this, SLOT(shoot()));
+            QObject::connect(ufoTimer, SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
+            QObject::connect(shootTimer, SIGNAL(timeout()), this, SLOT(shoot()));
         }
     }
     else if (this->newLine == 2 && this->sceneBoundingRect().x() > secondLine.left()){
         this->moveBy(-3, 0);
         if (this->sceneBoundingRect().x() <= secondLine.left()){
-            QObject::disconnect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(moveUfo()));
+            QObject::disconnect(ufoTimer, SIGNAL(timeout()), this, SLOT(moveUfo()));
             ufoTimer->setInterval(ufoTimerValue);
-            QObject::connect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
-            QObject::connect(shootTimer.get(), SIGNAL(timeout()), this, SLOT(shoot()));
+            QObject::connect(ufoTimer, SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
+            QObject::connect(shootTimer, SIGNAL(timeout()), this, SLOT(shoot()));
         }
     }
     else if (this->newLine == 3){
         this->moveBy(3, 0);
         if (this->sceneBoundingRect().x() >= thirdLine.left()){
-            QObject::disconnect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(moveUfo()));
+            QObject::disconnect(ufoTimer, SIGNAL(timeout()), this, SLOT(moveUfo()));
             ufoTimer->setInterval(ufoTimerValue);
-            QObject::connect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
-            QObject::connect(shootTimer.get(), SIGNAL(timeout()), this, SLOT(shoot()));
+            QObject::connect(ufoTimer, SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
+            QObject::connect(shootTimer, SIGNAL(timeout()), this, SLOT(shoot()));
         }
     }
     else if (this->newLine == 1){
         this->moveBy(-3, 0);
         if (this->sceneBoundingRect().x() <= firstLine.left()){
-            QObject::disconnect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(moveUfo()));
+            QObject::disconnect(ufoTimer, SIGNAL(timeout()), this, SLOT(moveUfo()));
             ufoTimer->setInterval(ufoTimerValue);
-            QObject::connect(ufoTimer.get(), SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
-            QObject::connect(shootTimer.get(), SIGNAL(timeout()), this, SLOT(shoot()));
+            QObject::connect(ufoTimer, SIGNAL(timeout()), this, SLOT(whereMoveUfo()));
+            QObject::connect(shootTimer, SIGNAL(timeout()), this, SLOT(shoot()));
         }
     }
 }
 
 void Ufo::shoot(){
     emit shooted(this);
-    QObject::disconnect(shootTimer.get(), SIGNAL(timeout()), this, SLOT(shoot()));
+    QObject::disconnect(shootTimer, SIGNAL(timeout()), this, SLOT(shoot()));
 }
 
 void Ufo::connectWithBullet()
 {
     this->deleteLater();
+}
+
+Ufo::~Ufo(){
+    delete ufoTimer;
+    delete shootTimer;
 }

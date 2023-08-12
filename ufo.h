@@ -18,14 +18,15 @@ public:
     Ufo(QObject*);
     void connectWithGlider(int&, int&) const override{};
     void connectWithBullet() override;
+    ~Ufo();
 
 protected:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
-    std::unique_ptr<QTimer> ufoTimer;
-    std::unique_ptr<QTimer> shootTimer;
+    QTimer *ufoTimer;
+    QTimer *shootTimer;
     int line;
     int curLine;
     int newLine;
